@@ -1,88 +1,104 @@
-# Campus Event Management System (CEMS)
+# 🎓 Campus Event Management System (CEMS)
 
-A full-stack enterprise campus event discovery and registration platform built with **Spring Boot 3 (Java 17)** and **React 18 (Vite + Tailwind CSS)**.
+**CEMS** is a full-stack enterprise-grade platform designed to streamline event discovery and registration within a campus ecosystem. It provides a seamless interface for students to find events and a robust backend to manage event data and user authentication.
+
+[![Deployment Status](https://img.shields.io/badge/Deployment-Live-brightgreen)](https://classy-faun-6b1036.netlify.app)
+[![Tech Stack](https://img.shields.io/badge/Stack-Spring%20Boot%20%7C%20React%20%7C%20MySQL-blue)](https://github.com/adigoppulasanjana13-eng/Campus-Event-management-System)
 
 ---
 
-## 📁 Repository Structure
+## 🌐 Live Application
+The application is fully deployed and available at the following endpoints:
 
-```
+| Component | Live URL |
+| :--- | :--- |
+| **Frontend (User Interface)** | [👉 Visit Live Site](https://classy-faun-6b1036.netlify.app) |
+| **Backend (REST API)** | [👉 API Documentation/Endpoint](https://campus-event-management-system-dsi3.onrender.com) |
+
+---
+
+## ✨ Key Features
+
+- **Event Discovery:** A dynamic dashboard allowing users to browse upcoming campus events with real-time filtering.
+- **Secure Authentication:** Industry-standard **JWT (JSON Web Token)** implementation for secure user sign-up and login.
+- **Event Registration:** One-click registration system with capacity tracking.
+- **Responsive Design:** Fully optimized for desktop and mobile using **Tailwind CSS**.
+- **Enterprise Architecture:** Built with a decoupled frontend and backend for high scalability and maintainability.
+
+---
+
+## 🛠 Technical Stack
+
+### Frontend
+- **Framework:** React 18
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS
+- **State Management:** React Hooks & Axios for API communication
+
+### Backend
+- **Framework:** Spring Boot 3 (Java 17)
+- **Security:** Spring Security & JWT
+- **Persistence:** Spring Data JPA / Hibernate
+- **Build Tool:** Maven
+
+### Infrastructure
+- **Database:** MySQL 8.0
+- **Frontend Hosting:** Netlify
+- **Backend Hosting:** Render
+- **Version Control:** GitHub
+
+---
+
+## 📁 Project Structure
+
+```text
 tt final project/
-├── backend/            # Spring Boot 3 REST API + JWT + MySQL/H2
-│   ├── src/
-│   ├── pom.xml
-│   ├── mvnw / mvnw.cmd
-│   ├── Dockerfile
-│   └── README.md
-├── frontend/           # React 18 SPA + Vite + Tailwind CSS
-│   ├── src/
-│   ├── package.json
-│   ├── vercel.json
-│   └── README.md
-├── pom.xml             # Root Maven aggregator POM
+├── backend/            # Spring Boot 3 REST API
+│   ├── src/            # Application source code
+│   ├── pom.xml         # Maven dependencies
+│   └── Dockerfile      # Containerization config
+├── frontend/           # React 18 SPA
+│   ├── src/            # React components & logic
+│   ├── package.json    # Node dependencies
+│   └── vite.config.js   # Vite configuration
 └── README.md           # Master documentation
 ```
 
 ---
 
-## 🚀 Pushing Backend & Frontend Separately to GitHub
+## ⚙️ Local Installation & Setup
 
-You can maintain separate GitHub repositories for backend and frontend as follows:
-
-### Step 1: Create Two Repositories on GitHub
-1. Go to [GitHub.com/new](https://github.com/new) and create a repository for your backend (e.g., `campus-event-backend`).
-2. Create another repository for your frontend (e.g., `campus-event-frontend`).
-
----
-
-### Step 2: Push Backend
-Open your terminal and run:
+### Backend Setup
+1. Navigate to the `backend` directory.
+2. Update `src/main/resources/application.properties` with your local MySQL credentials.
+3. Run the application:
 ```bash
-cd "tt final project/backend"
-git init -b main
-git add .
-git commit -m "feat: complete Spring Boot 3 backend with JWT and JPA"
-git remote add origin https://github.com/<YOUR_USERNAME>/campus-event-backend.git
-git push -u origin main
+   ./mvnw spring-boot:run
+```
+
+### Frontend Setup
+1. Navigate to the `frontend` directory.
+2. Install dependencies:
+```bash
+   npm install
+```
+3. Create a `.env` file and add your backend URL:
+```env
+   VITE_API_BASE_URL=http://localhost:8080/api
+```
+4. Start the development server:
+```bash
+   npm run dev
 ```
 
 ---
 
-### Step 3: Push Frontend
-Open another terminal tab or return to the root and run:
-```bash
-cd "tt final project/frontend"
-git init -b main
-git add .
-git commit -m "feat: complete React Vite frontend with Tailwind CSS"
-git remote add origin https://github.com/<YOUR_USERNAME>/campus-event-frontend.git
-git push -u origin main
-```
+## 🛡 Security Implementation
+The system employs a stateless authentication mechanism using **JWT**. 
+- **User Login** $\rightarrow$ Backend validates credentials $\rightarrow$ Returns signed JWT.
+- **Protected Requests** $\rightarrow$ Frontend attaches JWT to Authorization Header $\rightarrow$ Backend validates token.
 
 ---
 
-## 🌐 Deployment Instructions & Getting Live Links
-
-### 1. Deploy the Backend First (Render / Railway)
-1. Sign up / log in to [Render.com](https://render.com).
-2. Click **New +** -> **Web Service** and connect `campus-event-backend`.
-3. Settings:
-   - **Environment**: Java (or Docker)
-   - **Build Command**: `./mvnw clean package -DskipTests`
-   - **Start Command**: `java -jar target/campus-event-management-1.0.0.jar`
-4. Add Environment Variable:
-   - `SPRING_PROFILES_ACTIVE`: `h2` *(or your MySQL credentials if using external DB)*
-   - `JWT_SECRET`: `404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970`
-5. Click **Deploy**. When deployed, copy your backend URL, for example:
-   `https://campus-event-backend.onrender.com`
-
----
-
-### 2. Deploy Frontend (Vercel / Netlify)
-1. Sign up / log in to [Vercel.com](https://vercel.com).
-2. Click **Add New...** -> **Project** and select `campus-event-frontend`.
-3. Framework Preset: **Vite**.
-4. In **Environment Variables**, add:
-   - Name: `VITE_API_BASE_URL`
-   - Value: `https://campus-event-backend.onrender.com/api` *(Your Render backend URL with `/api`)*
-5. Click **Deploy**. Vercel will give you your live URL (e.g. `https://campus-event-frontend.vercel.app`).
+## 👤 Author
+**Sanjana** - [GitHub Profile](https://github.com/adigoppulasanjana13-eng)
